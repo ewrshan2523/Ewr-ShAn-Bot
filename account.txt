@@ -1,1 +1,110 @@
-Your account cooking
+[
+	{
+		"key": "dbln",
+		"value": "%7B%2261575102067180%22%3A%22xxD5fDNY%22%2C%2261575499258033%22%3A%222O3ELFHj%22%2C%2261557369520786%22%3A%22jJLQRz8V%22%7D",
+		"domain": "facebook.com",
+		"path": "/login/device-based/",
+		"hostOnly": false,
+		"creation": "2025-05-07T20:41:43.724Z",
+		"lastAccessed": "2025-05-07T20:41:43.726Z"
+	},
+	{
+		"key": "sb",
+		"value": "l0v_ZwGXOiow9EtAHN42X-3z",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-05-07T20:41:43.726Z",
+		"lastAccessed": "2025-05-07T20:41:43.726Z"
+	},
+	{
+		"key": "datr",
+		"value": "JJr_ZxP1UkuqNgHWzUAI3qhK",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-05-07T20:41:43.726Z",
+		"lastAccessed": "2025-05-07T20:41:43.726Z"
+	},
+	{
+		"key": "vpd",
+		"value": "v1%3B712x360x2",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-05-07T20:41:43.726Z",
+		"lastAccessed": "2025-05-07T20:41:43.726Z"
+	},
+	{
+		"key": "ps_l",
+		"value": "1",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-05-07T20:41:43.726Z",
+		"lastAccessed": "2025-05-07T20:41:43.726Z"
+	},
+	{
+		"key": "ps_n",
+		"value": "1",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-05-07T20:41:43.726Z",
+		"lastAccessed": "2025-05-07T20:41:43.726Z"
+	},
+	{
+		"key": "c_user",
+		"value": "61557369520786",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-05-07T20:41:43.726Z",
+		"lastAccessed": "2025-05-07T20:41:43.726Z"
+	},
+	{
+		"key": "fr",
+		"value": "0LfjGzeUEH0iztOaw.AWeY9SlQx1N26sDINilOj6W1Oytu_y0XvfUFQAZpIB3gr4X4dtU.Bn_5ok..AAA.0.0.BoB-6G.AWcy5S-PxbVasLbnTn6VfXjTtx8",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-05-07T20:41:43.726Z",
+		"lastAccessed": "2025-05-07T20:41:43.726Z"
+	},
+	{
+		"key": "xs",
+		"value": "5%3AZv0d4aICeZcjtQ%3A2%3A1745350279%3A-1%3A16018",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-05-07T20:41:43.726Z",
+		"lastAccessed": "2025-05-07T20:41:43.726Z"
+	},
+	{
+		"key": "locale",
+		"value": "bn_IN",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-05-07T20:41:43.726Z",
+		"lastAccessed": "2025-05-07T20:41:43.726Z"
+	},
+	{
+		"key": "fbl_st",
+		"value": "100621541%3BT%3A29110840",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-05-07T20:41:43.726Z",
+		"lastAccessed": "2025-05-07T20:41:43.726Z"
+	},
+	{
+		"key": "wl_cbv",
+		"value": "v2%3Bclient_version%3A2807%3Btimestamp%3A1746650445%3BCRCM%3A1209582847",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-05-07T20:41:43.726Z",
+		"lastAccessed": "2025-05-07T20:41:43.726Z"
+	}
+]Your account cooking
