@@ -2,9 +2,9 @@ const axios = require("axios");
 
 const getAPIBase = async () => {
   const { data } = await axios.get(
-    "https://raw.githubusercontent.com/nazrul4x/Noobs/main/Apis.json"
+    "https://raw.githubusercontent.com/EwrShAn25/ShAn.s-Api/refs/heads/main/Api.json"
   );
-  return data.bs;
+  return data.shan;
 };
 
 const sendMessage = (api, threadID, message, messageID) =>
@@ -26,15 +26,38 @@ const teachBot = async (api, threadID, messageID, senderID, teachText) => {
     if (!apiBase) return cError(api, threadID, messageID);
 
     const res = await axios.get(
-      `${apiBase}/bby/teach?ask=${encodeURIComponent(ask)}&ans=${encodeURIComponent(answerArray.join(","))}&uid=${senderID}`
+      `${apiBase}/ShAn/teach?ask=${encodeURIComponent(ask)}&ans=${encodeURIComponent(answerArray.join(","))}&uid=${senderID}`
     );
 
-    const responseMsg = res.data?.message === "Teaching recorded successfully!"
-      ? `Successfully taught the bot!\n📖 Teaching Details:\n- Question: ${res.data.ask}\n- Answers: ${answerArray.join(", ")}\n- Your Total Teachings: ${res.data.userStats.user.totalTeachings}`
-      : res.data?.message || "Teaching failed.";
-      
+    let responseMsg;
+    
+    switch (res.data?.status) {
+      case "Already Exists":
+        responseMsg = "🎀Answers have already been taught!";
+        break;
+        
+      case "Partial Success":
+        responseMsg = `🔄 Added new answers to existing question!\n` +
+                     `📖 Question: ${res.data.ask}\n` +
+                     `➕ New Answers: ${res.data.message.replace('Added new answers: ', '')}\n` +
+                     `🏆 Your Total Teachings: ${res.data.userStats.totalTeachings}`;
+        break;
+        
+      case "Success":
+        responseMsg = `✅ Successfully taught new question!\n` +
+                     `📖 Question: ${res.data.ask}\n` +
+                     `📝 Answers: ${answerArray.join(", ")}\n` +
+                     `🏆 Your Total Teachings: ${res.data.userStats.totalTeachings}`;
+        break;
+        
+      default:
+        responseMsg = res.data?.message || "❌ Teaching failed.";
+    }
+
     return sendMessage(api, threadID, responseMsg, messageID);
-  } catch {
+    
+  } catch (error) {
+    console.error('Teaching error:', error);
     return cError(api, threadID, messageID);
   }
 };
@@ -45,7 +68,7 @@ const talkWithBot = async (api, threadID, messageID, senderID, input) => {
     if (!apiBase) return cError(api, threadID, messageID);
 
     const res = await axios.get(
-      `${apiBase}/bby?text=${encodeURIComponent(input)}&uid=${senderID}&font=2`
+      `${apiBase}/ShAn/bby?text=${encodeURIComponent(input)}&uid=${senderID}&font=2`
     );
 
     const reply = res.data?.text || "Please teach me this sentence!🦆💨";
@@ -72,7 +95,7 @@ const botMsgInfo = async (api, threadID, messageID, senderID, input) => {
     if (!apiBase) return cError(api, threadID, messageID);
 
     const res = await axios.get(
-      `${apiBase}/bby/msg?ask=${encodeURIComponent(input)}&uid=${senderID}`
+      `${apiBase}/ShAn/msg?ask=${encodeURIComponent(input)}&uid=${senderID}`
     );
 
     if (!res.data || res.data.status !== "Success" || !Array.isArray(res.data.messages) || res.data.messages.length === 0) {
@@ -102,7 +125,7 @@ const deleteMessage = async (api, threadID, messageID, senderID, input) => {
     const apiBase = await getAPIBase();
     if (!apiBase) return cError(api, threadID, messageID);
 
-    let url = `${apiBase}/bby/delete?text=${encodeURIComponent(text)}&uid=${senderID}`;
+    let url = `${apiBase}/ShAn/delete?text=${encodeURIComponent(text)}&uid=${senderID}`;
     if (index !== null) url += `&index=${index}`;
 
     const res = await axios.get(url);
@@ -131,7 +154,7 @@ const editMessage = async (api, threadID, messageID, senderID, input) => {
       const index = parseInt(newAskOrIndex, 10);
 
       const res = await axios.get(
-        `${apiBase}/bby/edit?ask=${encodeURIComponent(ask)}&index=${index}&newAns=${encodeURIComponent(newAns)}&uid=${senderID}`
+        `${apiBase}/ShAn/edit?ask=${encodeURIComponent(ask)}&index=${index}&newAns=${encodeURIComponent(newAns)}&uid=${senderID}`
       );
 
       return sendMessage(api, threadID, res.data?.status === "Success"
@@ -139,7 +162,7 @@ const editMessage = async (api, threadID, messageID, senderID, input) => {
         : res.data?.message || "❌ Failed to update the answer!", messageID);
     } else {
       const res = await axios.get(
-        `${apiBase}/bby/edit?ask=${encodeURIComponent(ask)}&newAsk=${encodeURIComponent(newAskOrIndex)}&uid=${senderID}`
+        `${apiBase}/ShAn/edit?ask=${encodeURIComponent(ask)}&newAsk=${encodeURIComponent(newAskOrIndex)}&uid=${senderID}`
       );
 
       return sendMessage(api, threadID, res.data?.status === "Success"
@@ -155,13 +178,15 @@ module.exports.config = {
   name: "bby",
   aliases: ["baby","bbu", "faiza", "shan"],
   version: "1.6.9",
-  author: "Nazrul",
+  author: "𝗦𝗵𝗔𝗻",
   role: 0,
-  description: "Talk with the bot or teach it new responses",
-  category: "talk",
+  description: {
+    en: "Talk with the bot or teach it new responses"
+  },
+  category: "𝗧𝗔𝗟𝗞",
   countDown: 3,
   guide: {
-    en: `{pn} <text> - Ask the bot something\n{pn} teach <ask> - <answer> - Teach the bot a new response\n\nExamples:\n1. {pn} Hello\n2. {pn} teach hi - hello\n3. {pn} delete <text> - Delete all answers related to text\n4. {pn} delete <text> - <index> - Delete specific answer at index\n5. {pn} edit <Ask> - <New Ask> to update the ask query\n6. {pn} edit <ask> - <index> - <new ans> update specific answer at index`,
+    en: `{p}{n} <text> - Ask the bot something\n{p}ShAn teach <ask> - <answer> - Teach the bot a new response\n\nExamples:\n1. {p}{n} Hello\n2. {p}ShAn teach hi - hello\n3. {p}ShAn delete <text> - Delete all answers related to text\n4. {p}ShAn delete <text> - <index> - Delete specific answer at index\n5. {p}ShAn edit <Ask> - <New Ask> to update the ask query\n6. {p}ShAn edit <ask> - <index> - <new ans> update specific answer at index`,
   },
 };
 
@@ -192,10 +217,10 @@ module.exports.onStart = async ({ api, event, args }) => {
 module.exports.onChat = async ({ api, event }) => {
   const { threadID, messageID, body, senderID } = event;
 
-  const cMessages = ["🎀 Hello bby!", "🎀 Hi there!", "🎀 Hey! How can I help?😝"];
+  const cMessages = ["🎀 Hello bby!", "🎀 Hi there!", "🎀 Hey! How can I help?😝", ];
   const userInput = body.toLowerCase().trim();
 
-  const keywords = ["bby", "shan", " faiza", "hii", "baby", "bot", "বট", "robot"];
+  const keywords = ["bby", "shan", "baby", "bot", "বট", "robot"];
 
   if (keywords.some((keyword) => userInput.startsWith(keyword))) {
     const isQuestion = userInput.split(" ").length > 1;
@@ -204,7 +229,7 @@ module.exports.onChat = async ({ api, event }) => {
 
       try {
         const res = await axios.get(
-          `${await getAPIBase()}/bby?text=${encodeURIComponent(question)}&uid=${senderID}&font=2`
+          `${await getAPIBase()}/ShAn/bby?text=${encodeURIComponent(question)}&uid=${senderID}&font=2`
         );
         const replyMsg = res.data?.text || "Please teach me this sentence!🦆💨";
         const react = res.data.react || "";
